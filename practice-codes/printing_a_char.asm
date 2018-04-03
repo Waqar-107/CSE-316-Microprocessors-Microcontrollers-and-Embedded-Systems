@@ -1,0 +1,16 @@
+.MODEL SMALL
+
+
+.CODE
+
+
+MAIN PROC
+
+    MOV AH,2    ;2 FOR OUTPUT
+    MOV DL,'A'  
+    INT 21h     ;CALLING AN INTERUPT
+    
+
+MAIN ENDP
+
+END MAIN
