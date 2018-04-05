@@ -1,0 +1,31 @@
+.MODEL SMALL
+    
+.DATA
+     
+     STR DB 'HELLO WORLD!!! $'
+     STR2 DB 'CSE,BUET $'
+     
+.CODE
+
+MAIN PROC
+    
+    MOV AX,@DATA    ;INITIALIZATION OF DATA SEG
+    MOV DS,AX
+    
+    LEA DX,STR      ;LOAD EFFECTIVE ADDRESS
+    MOV AH,9
+    INT 21H       
+    
+    MOV AH,2
+    MOV DL,0AH
+    INT 21H
+    MOV DL,0DH
+    INT 21H  
+    
+    LEA DX,STR2
+    MOV AH,9
+    INT 21H
+    
+MAIN ENDP
+
+END MAIN
