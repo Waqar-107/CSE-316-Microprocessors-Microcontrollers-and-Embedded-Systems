@@ -14,13 +14,14 @@
     
     INPUT_A_HIGH_BIT DW 0
     INPUT_A_LOW_BIT DW 0
-    OUTPUT_B_BIT DW 0
-    OUTPUT_B_LOW_BIT DW 0
+    INPUT_B_HIGH_BIT DW 0
+    INPUT_B_LOW_BIT DW 0
     
     FLAG DW ?
     
 .CODE
 
+;-------------------------------------------------------------------------
 ADDITION PROC
     ;LET BX:AX HIGH:LOW BITS
     ;    DX:CX WILL BE ADDED WITH BX,AX 
@@ -80,6 +81,8 @@ MULTIPLICATION PROC
       OR AX,AX
       JZ RESTORE_MULT           ;HIGH IS 0, AND AS LOW=0, IT MADE IT TO THIS INSTRUCTION
       
+      
+      CALC_MUL:
       ;CHECK LSB OF B HERE AND SHIFT
       MOV AX,INPUT_B_LOW_BIT
       MOV BX,INPUT_B_HIGH_BIT
@@ -88,21 +91,44 @@ MULTIPLICATION PROC
       SHR BX,1
       RCR AX,1                  ;B HAS SHIFTED RIGHT, CF HAS THE LSB NOW, CHECK
       
+      ;SAVE B
+      MOV INPUT_B_LOW_BIT,AX
+      MOV INPUT_B_HIGH_BIT,BX 
+      
       ;COMPARE CF
-      CMP CF,1
-      JE UPDATE_TOTAL
+      ;JUMP CARRY
+      JC UPDATE_TOTAL
+      JMP SHIFT_BIT_A
       
       ;CALCULATE
       UPDATE_TOTAL:
         MOV BX,MUL_HIGH_BIT
         MOV AX,MUL_LOW_BIT
                
-        MOV CX,INPUT_A_LOW_BIT
         MOV DX,INPUT_A_HIGH_BIT
+        MOV CX,INPUT_A_LOW_BIT
+        
+        ;RESET THE ANS VARIABLES 
+        MOV ANS_HIGH_BIT,0
+        MOV ANS_LOW_BIT,0
+      
+        CALL ADDITION
  
       SHIFT_BIT_A:
-  
-      
+        ;NOW ANS HAS THE SUM, MOV IT TO MULT
+        MOV AX,ANS_HIGH_BIT
+        MOV MUL_HIGH_BIT,AX
+        
+        MOV AX,ANS_LOW_BIT
+        MOV MUL_LOW_BIT,AX
+        
+        ;NOW MUL HAS THE TOTAL, SO WE CAN LEFT SHIFT A
+        MOV CX,INPUT_A_LOW_BIT
+        MOV DX,INPUT_A_HIGH_BIT
+        
+        SHL CX,1
+        RCL DX,1
+        JMP WHILE_MULT
                
   RESTORE_MULT:
       POP DX
@@ -124,8 +150,12 @@ MAIN PROC
     INT 21H
     
     
+    MOV INPUT_A_HIGH_BIT,0H
+    MOV INPUT_A_LOW_BIT,0009H
+    MOV INPUT_B_HIGH_BIT,0H
+    MOV INPUT_B_LOW_BIT,0002H
     
-    
+    CALL MULTIPLICATION
    
     EXIT:
         MOV AH,4CH
