@@ -48,14 +48,48 @@ ADDITION PROC
         POP AX    
 RET    
 ADDITION ENDP 
+;-------------------------------------------------------------------------
 
 
+;-------------------------------------------------------------------------
 SUBTRACTION PROC
-    
+   ; a-b= a+(2's compliment of b)
+   PUSH AX
+   PUSH BX
+   PUSH CX
+   PUSH DX
+   
+   MOV AX,INPUT_A_LOW_BIT
+   MOV BX,INPUT_A_HIGH_BIT
+   MOV CX,INPUT_B_LOW_BIT
+   MOV DX,INPUT_B_HIGH_BIT
+   
+   ;1'S COMPLIMENT OF B
+   NEG DX
+   NEG CX
+   
+   CMP CX,0
+   JE ADD_CARRY_SUB
+   JMP DONT_ADD_CARRY_SUB
+   
+   ADD_CARRY_SUB:
+        ADD DX,1
+   
+   DONT_ADD_CARRY_SUB:
+   ;NEGATION DONE
+   ;NOW THE VALUES ARE ALREADY SET IN THE REGISTER
+   CALL ADDITION
+   
+   POP DX
+   POP CX
+   POP BX
+   POP AX     
 RET    
 SUBTRACTION ENDP 
-   
-   
+;-------------------------------------------------------------------------   
+ 
+
+;-------------------------------------------------------------------------   
 MULTIPLICATION PROC   
     
   PUSH AX
@@ -142,6 +176,23 @@ MULTIPLICATION PROC
       POP AX   
 RET    
 MULTIPLICATION ENDP
+;-------------------------------------------------------------------------
+
+
+;-------------------------------------------------------------------------
+DIVISON PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    
+    RESTORE_DIV:
+    POP DX
+    POP CX
+    POP BX
+    POP AX
+DIVISON ENDP
+;-------------------------------------------------------------------------
 
 MAIN PROC
               
@@ -152,15 +203,16 @@ MAIN PROC
     ;SHOW WELCOME MESSAGE
     LEA DX,WELCOME_MESSAGE
     MOV AH,9
-    INT 21H
+    INT 21H 
+    
     
     
     MOV INPUT_A_HIGH_BIT,0H
-    MOV INPUT_A_LOW_BIT,5EH
+    MOV INPUT_A_LOW_BIT,3H
     MOV INPUT_B_HIGH_BIT,0H
-    MOV INPUT_B_LOW_BIT,3H
+    MOV INPUT_B_LOW_BIT,5EH
     
-    CALL MULTIPLICATION
+    CALL SUBTRACTION
    
     EXIT:
         MOV AH,4CH
