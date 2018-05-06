@@ -4,29 +4,52 @@
     WELCOME_MESSAGE DB 'Welcome to Calculator v 1.0.',0AH,0DH,'Press a to add, s to subtract and m to multiply.',0AH,0DH,'$'
     OPTIONS DB 'Operation: $'
     NEWLINE DB 0AH,0DH,'$' 
-    DBG DB 'IN',0AH,0DH,'$'
+    DBG DB 'IN',0AH,0DH,'$' 
+    
+    ANS_HIGH_BIT DW 0
+    ANS_LOW_BIT DW 0
+    
+    MUL_HIGH_BIT DW 0
+    MUL_LOW_BIT DW 0
+    
 .CODE
 
 ADDITION PROC
-    MOV AH,2
-    MOV DL,'A'
-    INT 21H
+    ;LET BX:AX HIGH:LOW BITS
+    ;    DX:CX WILL BE ADDED WITH BX,AX 
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    
+    ADD BX,DX
+    ADD AX,CX
+    JC ADD_CARRY
+    JMP DONT_ADD_CARRY
+    
+    ADD_CARRY:
+        ADD BX,1
+    
+    DONT_ADD_CARRY:
+        MOV ANS_HIGH_BIT,BX
+        MOV ANS_LOW_BIT, AX
+        
+        POP DX
+        POP CX
+        POP BX
+        POP AX    
 RET    
 ADDITION ENDP 
 
 
 SUBTRACTION PROC
-    MOV AH,2
-    MOV DL,'S'
-    INT 21H
+    
 RET    
 SUBTRACTION ENDP 
    
    
 MULTIPLICATION PROC
-    MOV AH,2
-    MOV DL,'M'
-    INT 21H  
+     
 RET    
 MULTIPLICATION ENDP
 
@@ -41,48 +64,10 @@ MAIN PROC
     MOV AH,9
     INT 21H
     
-    WHILE:      
-        
-        LEA DX,OPTIONS
-        MOV AH,9
-        INT 21H
     
-        MOV AH,1
-        INT 21H 
-        MOV BL,AL
-        
-        ;NEWLINE
-        MOV AH,9
-        LEA DX,NEWLINE
-        INT 21H
-        
-        ;END WHILE LOOP
-        CMP BL,'X'
-        JE EXIT
-        
-        ;CHECK
-        CMP BL,'a'
-        JE ADD_
-        CMP BL,'s'
-        JE SUB_
-        CMP BL,'m'
-        JE MUL_ 
-        
-        
-        ;IF ANYTHING OTHER THAN 'X','a','s' OR 'm' GIVEN
-        JMP WHILE
-        
-        ADD_:
-            ;CALL ADDITION
-            CALL ADDITION
-            JMP WHILE
-        SUB_:
-            CALL SUBTRACTION
-            JMP WHILE
-        MUL_:
-            CALL MULTIPLICATION
-        JMP WHILE
-     
+    
+    
+   
     EXIT:
         MOV AH,4CH
         INT 21H
