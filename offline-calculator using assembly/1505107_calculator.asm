@@ -34,6 +34,10 @@
     B_EXP DB 0
     T_EXP DB 0
     
+    QUOTIENT_HIGH DW ?
+    QUOTIENT_LOW DW ?
+    REMAINDER DW ?
+    
 .CODE
 
 ;-------------------------------------------------------------------------
@@ -195,17 +199,36 @@ MULTIPLICATION ENDP
 
 
 ;-------------------------------------------------------------------------
+;SAVE A IN BX:AX, SAVE B IN CX
 DIVISON PROC
     PUSH AX
     PUSH BX
     PUSH CX
     PUSH DX
     
+    ;DX:AX=DIVINEND
+    ;CX=DIVISOR
+    ;DX:AX=QUOTIENT, BX=REM
+    
+    PUSH AX         ;SAVE LOW WORD
+    MOV AX,DX       ;HIGH WORD TO AX
+    SUB DX,DX       ;SET DX=0
+    DIV CX          ;DIVIDE THE HIGH
+    MOV BX,AX       ;BX=QUOTIENT HIGH WORD
+    POP AX          ;RETRIEVE LOW 
+    DIV CX          ;DIVIDE REMANDER HIGH:DIVINEND LOW
+    XCHG BX,DX      ;SWAPS RESULTS INTO PLACE
+    
+    MOV QUOTIENT_HIGH,DX
+    MOV QUOTIENT_LOW,AX
+    MOV REMAINDER,BX
+    
     RESTORE_DIV:
     POP DX
     POP CX
     POP BX
     POP AX
+RET
 DIVISON ENDP
 ;-------------------------------------------------------------------------
 
@@ -233,9 +256,12 @@ INPUT PROC
     MOV INPUT_T_LOW_BIT,0
     MOV INPUT_T_HIGH_BIT,0
     JMP WHILE_INPUT
-     
-    NOT_SET_MINUS:
+    
+    ;IF NOT MINUS, THEN THE FIRST DIGIT IS IN AL 
+    NOT_SET_MINUS:    
         SUB AL,'0'
+        MOV AH,0;
+        
         MOV INPUT_T_LOW_BIT,AX
         MOV INPUT_T_HIGH_BIT,0 
     
@@ -244,14 +270,18 @@ INPUT PROC
         MOV AH,1
         INT 21H
         
+        ;TERMINATE IF SPACE,CR OR NEWLINE FOUND
         CMP AL,20H
         JE  RESTORE_INPUT
         CMP AL,0AH
         JE  RESTORE_INPUT
-        CMP AL,0AH
+        CMP AL,0DH
         JE  RESTORE_INPUT
         
+        SUB AL,'0'
+        
         ;THERE IS A DIGIT FOUND, TAKE IT AND MULTIPLY IT
+        
         MOV INPUT_B_LOW_BIT,10
         MOV INPUT_B_HIGH_BIT,0
         MOV BX,INPUT_T_LOW_BIT
@@ -260,15 +290,22 @@ INPUT PROC
         MOV INPUT_B_HIGH_BIT,BX
         
         ;NOW MULTILY
-        CALL MULTIPLY
+        CALL MULTIPLICATION
         
-        ;NOW MUL_VARIABLES HAVE THE ANSWERS
+        ;NOW MUL_VARIABLES HAVE THE ANSWERS, MOVE THEM IN TOTAL
+        MOV BX,MUL_HIGH_BIT
+        MOV INPUT_T_HIGH_BIT,BX
+        MOV BX,MUL_LOW_BIT
+        MOV INPUT_T_LOW_BIT,BX
+        
+        JMP WHILE_INPUT
     
     RESTORE_INPUT:
         POP DX
         POP CX
         POP BX
         POP AX
+RET
 INPUT ENDP
 ;-------------------------------------------------------------------------
 
@@ -285,13 +322,6 @@ MAIN PROC
     INT 21H 
     
     
-    
-    MOV INPUT_A_HIGH_BIT,0H
-    MOV INPUT_A_LOW_BIT,3H
-    MOV INPUT_B_HIGH_BIT,0H
-    MOV INPUT_B_LOW_BIT,5EH
-    
-    CALL SUBTRACTION
    
     EXIT:
         MOV AH,4CH
