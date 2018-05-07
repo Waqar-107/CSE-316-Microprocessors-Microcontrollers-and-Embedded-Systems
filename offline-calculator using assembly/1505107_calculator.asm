@@ -95,25 +95,22 @@ SUBTRACTION PROC
    
    MOV AX,INPUT_A_LOW_BIT
    MOV BX,INPUT_A_HIGH_BIT
+   
    MOV CX,INPUT_B_LOW_BIT
    MOV DX,INPUT_B_HIGH_BIT
    
    ;1'S COMPLIMENT OF B
    NEG DX
+   
    NEG CX
+   JNC CALL_ADD_IN_SUB:
    
-   CMP CX,0
-   JE DONT_ADD_CARRY_SUB
-   JMP ADD_CARRY_SUB
+   ADD DX,1
    
-   ADD_CARRY_SUB:
-        ADD DX,1
+   CALL_ADD_IN_SUB:  
+    CALL ADDITION
    
-   DONT_ADD_CARRY_SUB:
-   ;NEGATION DONE
-   ;NOW THE VALUES ARE ALREADY SET IN THE REGISTER
-   CALL ADDITION
-   
+   DO_NOT_ADD_CARRY: 
    POP DX
    POP CX
    POP BX
@@ -124,6 +121,7 @@ SUBTRACTION ENDP
  
 
 ;-------------------------------------------------------------------------   
+;save in input_a/b and get the answer in mul
 MULTIPLICATION PROC   
     
   PUSH AX
@@ -527,17 +525,76 @@ MAIN PROC
         JMP MUL_NUM
         
         ADD_NUM:
-        ;SAVE IN 4 REGISTERS AND GET THE ANSWERS IN ANS
-        BP_INPUT_A_HIGH_BIT DW 0
-        BP_INPUT_A_LOW_BIT DW 0
-        BP_INPUT_B_HIGH_BIT DW 0
-        BP_INPUT_B_LOW_BIT DW 0 
-        JMP WHILE_MAIN
+            ;SAVE IN 4 REGISTERS AND GET THE ANSWERS IN ANS
+            MOV BX,BP_INPUT_A_HIGH_BIT
+            MOV AX,BP_INPUT_A_LOW_BIT 
+            MOV DX,BP_INPUT_B_HIGH_BIT
+            MOV CX,BP_INPUT_B_LOW_BIT
+            CALL ADDITION  
+            
+            MOV BX,ANS_HIGH_BIT
+            MOV AX,ANS_LOW_BIT
+            
+            ;CALL OUTPUT, SET OUT_H/L
+            MOV OUT_HIGH,BX
+            MOV OUT_LOW,AX
+            
+            CALL OUTPUT
+            JMP WHILE_MAIN
         
         SUB_NUM:
-        JMP WHILE_MAIN
+            ;SAVE THE NUMBERS IN INPUT_A/B AND GET OUTPUT IN ANS
+            MOV BX,BP_INPUT_A_HIGH_BIT
+            MOV INPUT_A_HIGH_BIT,BX
+            
+            MOV AX,BP_INPUT_A_LOW_BIT
+            MOV INPUT_A_LOW_BIT,AX
+             
+            MOV DX,BP_INPUT_B_HIGH_BIT
+            MOV INPUT_B_HIGH_BIT,DX
+            
+            MOV CX,BP_INPUT_B_LOW_BIT
+            MOV INPUT_B_LOW_BIT,CX
+            
+            CALL SUBTRACTION 
+            
+            MOV BX,ANS_HIGH_BIT
+            MOV AX,ANS_LOW_BIT
+            
+            ;CALL OUTPUT, SET OUT_H/L
+            MOV OUT_HIGH,BX
+            MOV OUT_LOW,AX
+            
+            CALL OUTPUT
+            
+            JMP WHILE_MAIN
+        
         MUL_NUM:
-        JMP WHILE_MAIN   
+            ;SAVE THE NUMBERS IN INPUT_A/B AND GET OUTPUT IN MUL
+            MOV BX,BP_INPUT_A_HIGH_BIT
+            MOV INPUT_A_HIGH_BIT,BX
+            
+            MOV AX,BP_INPUT_A_LOW_BIT
+            MOV INPUT_A_LOW_BIT,AX
+             
+            MOV DX,BP_INPUT_B_HIGH_BIT
+            MOV INPUT_B_HIGH_BIT,DX
+            
+            MOV CX,BP_INPUT_B_LOW_BIT
+            MOV INPUT_B_LOW_BIT,CX
+            
+            CALL MULTIPLICATION
+            
+            ;SAVE MUL IN OUT
+            MOV BX,MUL_HIGH_BIT
+            MOV AX,MUL_LOW_BIT
+            
+            ;CALL OUTPUT, SET OUT_H/L
+            MOV OUT_HIGH,BX
+            MOV OUT_LOW,AX
+            
+            CALL OUTPUT
+            JMP WHILE_MAIN   
     EXIT:
         MOV AH,4CH
         INT 21H
