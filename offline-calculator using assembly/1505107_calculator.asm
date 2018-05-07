@@ -26,7 +26,10 @@
     BP_INPUT_B_LOW_BIT DW 0
     
     INPUT_T_HIGH_BIT DW 0
-    INPUT_T_LOW_BIT DW 0
+    INPUT_T_LOW_BIT DW 0 
+    
+    INPUT_NEG_HIGH_BIT DW 0
+    INPUT_NEG_LOW_BIT DW 0
     
     FLAG DW ?      ;FLAG FOR MINUS
     FLAG2 DW ?
@@ -102,7 +105,7 @@ SUBTRACTION PROC
    ;1'S COMPLIMENT OF B
    NEG CX
    NEG DX
-   JnC CALL_ADD_IN_SUB:
+   JnC CALL_ADD_IN_SUB
    
    ADD DX,1
    
@@ -419,6 +422,31 @@ OUTPUT PROC
 RET
 OUTPUT ENDP    
 ;-------------------------------------------------------------------------
+
+
+;-------------------------------------------------------------------------
+NEG_NUM PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    
+    NEG INPUT_NEG_LOW_BIT
+    NEG INPUT_NEG_HIGH_BIT
+    JNC CALL_ADD_NEG
+    
+    ADD INPUT_NEG_HIGH_BIT,1 
+    
+    CALL_ADD_NEG:
+        SUB INPUT_NEG_HIGH_BIT,1
+        
+    POP DX
+    POP CX
+    POP BX
+    POP AX
+RET    
+NEG_NUM ENDP
+;-------------------------------------------------------------------------
     
 MAIN PROC
               
@@ -465,12 +493,29 @@ MAIN PROC
         MOV BX,T_EXP 
         MOV A_EXP,BX
         
+        ;-------------------------------------NEGATION
+        CMP A_MINUS,1
+        JNE NEGATE_NONE
+        MOV BX,INPUT_A_HIGH_BIT
+        MOV INPUT_NEG_HIGH_BIT,BX
+        MOV BX,INPUT_A_LOW_BIT
+        MOV INPUT_NEG_LOW_BIT,BX
+        CALL NEG_NUM
+        ;UPDATE A
+        MOV BX,INPUT_NEG_HIGH_BIT
+        MOV INPUT_A_HIGH_BIT,BX
+        MOV BX,INPUT_NEG_LOW_BIT
+        MOV INPUT_A_LOW_BIT,BX
+        ;NEGATE IF NECESSARY 
+        ;-------------------------------------NEGATION
+        NEGATE_NONE:
+        
         ;NEWLINE
         LEA DX,NEWLINE
         MOV AH,9
         INT 21H
         
-        ;ENTER FIRST NUMBER
+        ;ENTER SECOND NUMBER
         LEA DX,PR2
         MOV AH,9
         INT 21H
@@ -488,13 +533,28 @@ MAIN PROC
         MOV BX,T_EXP 
         MOV B_EXP,BX
         
+        ;-------------------------------------NEGATION
+        CMP B_MINUS,1
+        JNE NEGATE_NONE2
+        MOV BX,INPUT_B_HIGH_BIT
+        MOV INPUT_NEG_HIGH_BIT,BX
+        MOV BX,INPUT_B_LOW_BIT
+        MOV INPUT_NEG_LOW_BIT,BX
+        CALL NEG_NUM
+        ;UPDATE B
+        MOV BX,INPUT_NEG_HIGH_BIT
+        MOV INPUT_B_HIGH_BIT,BX
+        MOV BX,INPUT_NEG_LOW_BIT
+        MOV INPUT_B_LOW_BIT,BX
+        ;NEGATE IF NECESSARY 
+        ;-------------------------------------NEGATION
+        
+        NEGATE_NONE2:
+        
         ;NEWLINE
         LEA DX,NEWLINE
         MOV AH,9
         INT 21H
-        
-        ;NEGATE IF NECESSARY
-        
         
         ;FINAL CALCULATIONS
         ;FIRST FIX THE EXP, TAKE THE DIFFERENCE OF EXP
@@ -510,6 +570,7 @@ MAIN PROC
         JMP FINAL_CALC  
         
         EXP_A_g_B:
+        
         JMP FINAL_CALC
         
         EXP_B_g_A:    
