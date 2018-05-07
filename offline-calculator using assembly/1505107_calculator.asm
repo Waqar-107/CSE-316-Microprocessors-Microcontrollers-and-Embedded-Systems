@@ -15,9 +15,24 @@
     INPUT_A_HIGH_BIT DW 0
     INPUT_A_LOW_BIT DW 0
     INPUT_B_HIGH_BIT DW 0
-    INPUT_B_LOW_BIT DW 0
+    INPUT_B_LOW_BIT DW 0 
+    
+    BP_INPUT_A_HIGH_BIT DW 0
+    BP_INPUT_A_LOW_BIT DW 0
+    BP_INPUT_B_HIGH_BIT DW 0
+    BP_INPUT_B_LOW_BIT DW 0
+    
+    INPUT_T_HIGH_BIT DW 0
+    INPUT_T_LOW_BIT DW 0
     
     FLAG DW ?
+    
+    A_MINUS DB 0
+    B_MINUS DB 0
+    
+    A_EXP DB 0
+    B_EXP DB 0
+    T_EXP DB 0
     
 .CODE
 
@@ -194,6 +209,70 @@ DIVISON PROC
 DIVISON ENDP
 ;-------------------------------------------------------------------------
 
+
+;-------------------------------------------------------------------------
+INPUT PROC
+    PUSH AX
+    PUSH BX
+    PUSH CX
+    PUSH DX
+    
+    ;SAVE THE INPUT IN BACKUP COPIES, COPY THEM TO NORMALS INPUT-(A,B)-(HIGH,LOW)
+    ;TO WORK
+    ;TOTAL=TOTAL*10, FIRST CHECK FOR MINUS, WHEN THE POINT(.) IS FOUND, START COUNTING
+    
+    MOV T_EXP,0
+    MOV FLAG,0  ;NOT NEGATIVE
+    MOV AH,1    ;FOR '-'
+    INT 21H
+    
+    CMP AL,'-'
+    JNE NOT_SET_MINUS
+    MOV FLAG,1
+    
+    MOV INPUT_T_LOW_BIT,0
+    MOV INPUT_T_HIGH_BIT,0
+    JMP WHILE_INPUT
+     
+    NOT_SET_MINUS:
+        SUB AL,'0'
+        MOV INPUT_T_LOW_BIT,AX
+        MOV INPUT_T_HIGH_BIT,0 
+    
+    WHILE_INPUT:
+        ;KEEP TAKING INPUT TILL WE GET SPACE OR CARRIAGE
+        MOV AH,1
+        INT 21H
+        
+        CMP AL,20H
+        JE  RESTORE_INPUT
+        CMP AL,0AH
+        JE  RESTORE_INPUT
+        CMP AL,0AH
+        JE  RESTORE_INPUT
+        
+        ;THERE IS A DIGIT FOUND, TAKE IT AND MULTIPLY IT
+        MOV INPUT_B_LOW_BIT,10
+        MOV INPUT_B_HIGH_BIT,0
+        MOV BX,INPUT_T_LOW_BIT
+        MOV INPUT_B_LOW_BIT,BX
+        MOV BX,INPUT_T_HIGH_BIT
+        MOV INPUT_B_HIGH_BIT,BX
+        
+        ;NOW MULTILY
+        CALL MULTIPLY
+        
+        ;NOW MUL_VARIABLES HAVE THE ANSWERS
+    
+    RESTORE_INPUT:
+        POP DX
+        POP CX
+        POP BX
+        POP AX
+INPUT ENDP
+;-------------------------------------------------------------------------
+
+    
 MAIN PROC
               
     ;INITIALIZE DATA SEGMENT
