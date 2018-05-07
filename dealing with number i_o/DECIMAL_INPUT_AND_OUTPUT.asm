@@ -4,7 +4,10 @@
     WELCOME_MESSAGE DB 'Welcome to Calculator v 1.0.',0AH,0DH,'Press a to add, s to subtract and m to multiply.',0AH,0DH,'$'
     OPTIONS DB 'Operation: $'
     NEWLINE DB 0AH,0DH,'$' 
-    DBG DB 'IN',0AH,0DH,'$' 
+    DBG DB 'IN',0AH,0DH,'$'
+    
+    PR1 DB 'ENTER FIRST NUMBER: $'
+    PR2 DB 'ENTER SECOND NUMBER: $' 
     
     ANS_HIGH_BIT DW 0
     ANS_LOW_BIT DW 0
@@ -25,15 +28,15 @@
     INPUT_T_HIGH_BIT DW 0
     INPUT_T_LOW_BIT DW 0
     
-    FLAG DW ? 
+    FLAG DW ?      ;FLAG FOR MINUS
     FLAG2 DW ?
     
-    A_MINUS DB 0
-    B_MINUS DB 0
+    A_MINUS DW 0
+    B_MINUS DW 0
     
-    A_EXP DB 0
-    B_EXP DB 0
-    T_EXP DB 0
+    A_EXP DW 0
+    B_EXP DW 0
+    T_EXP DW 0
     
     QUOTIENT_HIGH DW ?
     QUOTIENT_LOW DW ?
@@ -43,7 +46,7 @@
     OUT_HIGH DW 0 
     
     COUNT DW 0 
-    DIGIT DB ?
+    DIGIT DW ?
     
     
 .CODE
@@ -430,16 +433,67 @@ MAIN PROC
     MOV AH,9
     INT 21H 
     
-    CALL INPUT
-    
-    MOV BX,INPUT_T_HIGH_BIT
-    MOV OUT_HIGH,BX
-    
-    MOV BX,INPUT_T_LOW_BIT
-    MOV OUT_LOW,BX
-    
-    CALL OUTPUT
-   
+    WHILE_MAIN:
+        LEA DX,OPTIONS
+        MOV AH,9
+        INT 21H
+        
+        MOV AH,1
+        INT 21H
+        
+        ;NEWLINE
+        LEA DX,NEWLINE
+        MOV AH,9
+        INT 21H
+        
+        ;ENTER FIRST NUMBER
+        LEA DX,PR1
+        MOV AH,9
+        INT 21H
+        
+        ;CALL INPUT
+        ;INPUT NUMBER WILL BE IN INPUT_T
+        ;IF NEGATIVE, FLAG=1
+        CALL INPUT
+        MOV BX,INPUT_T_HIGH_BIT
+        MOV BP_INPUT_A_HIGH_BIT,BX
+        MOV BX,INPUT_T_LOW_BIT
+        MOV BP_INPUT_A_LOW_BIT,BX
+        MOV BX,FLAG
+        MOV A_MINUS,BX
+        MOV BX,T_EXP 
+        MOV A_EXP,BX
+        
+        ;NEWLINE
+        LEA DX,NEWLINE
+        MOV AH,9
+        INT 21H
+        
+        ;ENTER FIRST NUMBER
+        LEA DX,PR2
+        MOV AH,9
+        INT 21H
+        
+        ;CALL INPUT
+        ;INPUT NUMBER WILL BE IN INPUT_T
+        ;IF NEGATIVE, FLAG=1
+        CALL INPUT
+        MOV BX,INPUT_T_HIGH_BIT
+        MOV BP_INPUT_B_HIGH_BIT,BX
+        MOV BX,INPUT_T_LOW_BIT
+        MOV BP_INPUT_B_LOW_BIT,BX
+        MOV BX,FLAG
+        MOV B_MINUS,BX
+        MOV BX,T_EXP 
+        MOV B_EXP,BX
+        
+        ;NEWLINE
+        LEA DX,NEWLINE
+        MOV AH,9
+        INT 21H
+        
+        JMP WHILE_MAIN
+        
     EXIT:
         MOV AH,4CH
         INT 21H
