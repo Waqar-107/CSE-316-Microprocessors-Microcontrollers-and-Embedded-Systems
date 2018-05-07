@@ -25,7 +25,8 @@
     INPUT_T_HIGH_BIT DW 0
     INPUT_T_LOW_BIT DW 0
     
-    FLAG DW ?
+    FLAG DW ? 
+    FLAG2 DW ?
     
     A_MINUS DB 0
     B_MINUS DB 0
@@ -41,11 +42,15 @@
     OUT_LOW DW 0
     OUT_HIGH DW 0 
     
-    COUNT DW 0
+    COUNT DW 0 
+    DIGIT DB ?
+    
     
 .CODE
 
 ;-------------------------------------------------------------------------
+;SET THE 4 REGISTERS AND CALL
+;THE ANSWER WILL BE FOUND IN ANS_HIGH_BIT AND ANS_LOW_BIT 
 ADDITION PROC
     ;LET BX:AX HIGH:LOW BITS
     ;    DX:CX WILL BE ADDED WITH BX,AX 
@@ -76,6 +81,8 @@ ADDITION ENDP
 
 
 ;-------------------------------------------------------------------------
+;SET INPUT_A/B_HIGH/LOW
+;THE ANSWER WILL BE SAVED IN ANS_VARIABLES 
 SUBTRACTION PROC
    ; a-b= a+(2's compliment of b)
    PUSH AX
@@ -93,8 +100,8 @@ SUBTRACTION PROC
    NEG CX
    
    CMP CX,0
-   JE ADD_CARRY_SUB
-   JMP DONT_ADD_CARRY_SUB
+   JE DONT_ADD_CARRY_SUB
+   JMP ADD_CARRY_SUB
    
    ADD_CARRY_SUB:
         ADD DX,1
@@ -252,6 +259,7 @@ INPUT PROC
     
     MOV T_EXP,0
     MOV FLAG,0  ;NOT NEGATIVE
+    MOV FLAG2,0 ;FLOATING POINT NOT FOUND, WHEN FOUND WE DO INC T_EXP++
     MOV AH,1    ;FOR '-'
     INT 21H
     
@@ -282,18 +290,28 @@ INPUT PROC
         CMP AL,0AH
         JE  RESTORE_INPUT
         CMP AL,0DH
-        JE  RESTORE_INPUT
+        JE  RESTORE_INPUT 
         
-        SUB AL,'0'
+        ;IS IT .
+        CMP AL,'.'
+        JE SET_FLAG_OP
+        JMP NORMAL_OP
         
-        ;THERE IS A DIGIT FOUND, TAKE IT AND MULTIPLY IT
+        SET_FLAG_OP:
+            MOV FLAG2,1
+            JMP WHILE_INPUT
+        
+        NORMAL_OP:
+        SUB AL,'0' 
+        
+        ;THERE IS A DIGIT FOUND, TAKE IT AND ADD IT WITH TOTAL*10
         
         MOV INPUT_B_LOW_BIT,10
         MOV INPUT_B_HIGH_BIT,0
         MOV BX,INPUT_T_LOW_BIT
-        MOV INPUT_B_LOW_BIT,BX
+        MOV INPUT_A_LOW_BIT,BX
         MOV BX,INPUT_T_HIGH_BIT
-        MOV INPUT_B_HIGH_BIT,BX
+        MOV INPUT_A_HIGH_BIT,BX
         
         ;NOW MULTILY
         CALL MULTIPLICATION
@@ -303,6 +321,26 @@ INPUT PROC
         MOV INPUT_T_HIGH_BIT,BX
         MOV BX,MUL_LOW_BIT
         MOV INPUT_T_LOW_BIT,BX
+        
+        ;NOW ADD INPUT_T WITH THE DIGIT
+        MOV DX,0 
+        MOV AH,0
+        MOV CX,AX
+        
+        MOV BX,INPUT_T_HIGH_BIT
+        MOV AX,INPUT_T_LOW_BIT
+
+        CALL ADDITION
+        
+        ;NOW ANS VARS ARE THE NEW TOTAL
+        MOV BX,ANS_HIGH_BIT
+        MOV INPUT_T_HIGH_BIT,BX
+        MOV BX,ANS_LOW_BIT
+        MOV INPUT_T_LOW_BIT,BX
+        
+        CMP FLAG2,1
+        JNE WHILE_INPUT
+        INC T_EXP
         
         JMP WHILE_INPUT
     
@@ -392,19 +430,15 @@ MAIN PROC
     MOV AH,9
     INT 21H 
     
-    ;CALL INPUT
+    CALL INPUT
     
-    MOV AH,2
-    MOV DL,0AH
-    INT 21H
-    MOV DL,0DH
-    INT 21H
+    ;MOV BX,INPUT_T_HIGH_BIT
+    ;MOV OUT_HIGH,BX
     
-    ;  
-    MOV OUT_HIGH,2H
-    MOV OUT_LOW,35H 
+    ;MOV BX,INPUT_T_LOW_BIT
+    ;MOV OUT_LOW,BX
     
-    CALL OUTPUT
+    ;CALL OUTPUT
    
     EXIT:
         MOV AH,4CH
