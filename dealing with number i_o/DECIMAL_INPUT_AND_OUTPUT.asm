@@ -369,7 +369,7 @@ OUTPUT PROC
         ;DX:AX=Q, BX=REM
         MOV DX,OUT_HIGH
         MOV AX,OUT_LOW
-        MOV CX,10H
+        MOV CX,10
         
         CALL DIVISON
         
@@ -432,13 +432,13 @@ MAIN PROC
     
     CALL INPUT
     
-    ;MOV BX,INPUT_T_HIGH_BIT
-    ;MOV OUT_HIGH,BX
+    MOV BX,INPUT_T_HIGH_BIT
+    MOV OUT_HIGH,BX
     
-    ;MOV BX,INPUT_T_LOW_BIT
-    ;MOV OUT_LOW,BX
+    MOV BX,INPUT_T_LOW_BIT
+    MOV OUT_LOW,BX
     
-    ;CALL OUTPUT
+    CALL OUTPUT
    
     EXIT:
         MOV AH,4CH
