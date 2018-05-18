@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "counter-polling", "counter-polling\counter-polling.cproj", "{A56DA54C-3C5F-436E-AAC5-CF9A1AE23BC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A56DA54C-3C5F-436E-AAC5-CF9A1AE23BC0}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A56DA54C-3C5F-436E-AAC5-CF9A1AE23BC0}.Debug|AVR.Build.0 = Debug|AVR
+		{A56DA54C-3C5F-436E-AAC5-CF9A1AE23BC0}.Release|AVR.ActiveCfg = Release|AVR
+		{A56DA54C-3C5F-436E-AAC5-CF9A1AE23BC0}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
