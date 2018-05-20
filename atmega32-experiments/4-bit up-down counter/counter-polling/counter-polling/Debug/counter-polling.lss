@@ -3,25 +3,25 @@ counter-polling.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000c2  00000000  00000000  00000054  2**1
+  0 .text         000000d0  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .comment      00000030  00000000  00000000  00000116  2**0
+  1 .comment      00000030  00000000  00000000  00000124  2**0
                   CONTENTS, READONLY
-  2 .debug_aranges 00000020  00000000  00000000  00000146  2**0
+  2 .debug_aranges 00000020  00000000  00000000  00000154  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   00000173  00000000  00000000  00000166  2**0
+  3 .debug_info   0000016a  00000000  00000000  00000174  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 000000e8  00000000  00000000  000002d9  2**0
+  4 .debug_abbrev 00000103  00000000  00000000  000002de  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   0000014a  00000000  00000000  000003c1  2**0
+  5 .debug_line   00000153  00000000  00000000  000003e1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_frame  00000024  00000000  00000000  0000050c  2**2
+  6 .debug_frame  00000024  00000000  00000000  00000534  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    000001d3  00000000  00000000  00000530  2**0
+  7 .debug_str    000001d3  00000000  00000000  00000558  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    000000af  00000000  00000000  00000703  2**0
+  8 .debug_loc    0000008c  00000000  00000000  0000072b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_ranges 00000010  00000000  00000000  000007b2  2**0
+  9 .debug_ranges 00000010  00000000  00000000  000007b7  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -57,7 +57,7 @@ Disassembly of section .text:
   5c:	de bf       	out	0x3e, r29	; 62
   5e:	cd bf       	out	0x3d, r28	; 61
   60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
-  64:	0c 94 5f 00 	jmp	0xbe	; 0xbe <_exit>
+  64:	0c 94 66 00 	jmp	0xcc	; 0xcc <_exit>
 
 00000068 <__bad_interrupt>:
   68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -73,86 +73,118 @@ int main(void)
   6e:	8a bb       	out	0x1a, r24	; 26
 	DDRB=0x00;
   70:	17 ba       	out	0x17, r1	; 23
-	DDRC=0xFF;
-  72:	84 bb       	out	0x14, r24	; 20
 	
-	unsigned char ma=0b00001111;
 	unsigned char mb1=0b00010000;
 	unsigned char mb2=0b00100000;
 	
-	unsigned char cnt=0;
-  74:	80 e0       	ldi	r24, 0x00	; 0
+	int cnt=0;
+  72:	80 e0       	ldi	r24, 0x00	; 0
+  74:	90 e0       	ldi	r25, 0x00	; 0
+		}
+		
+		else if(PINB & mb2)
+		{
+			if (cnt == 0)
+				cnt = 15;
+  76:	5f e0       	ldi	r21, 0x0F	; 15
+  78:	40 e0       	ldi	r20, 0x00	; 0
 	while(1)
 	{
-		if(PINB & mb1){
-			cnt++;
-			PORTA=cnt & ma;
-			PORTC=0b00000001;
-  76:	21 e0       	ldi	r18, 0x01	; 1
+		if(PINB & mb1)
+		{
+			if (cnt == 15)
+				cnt = 0;
+  7a:	30 e0       	ldi	r19, 0x00	; 0
+  7c:	20 e0       	ldi	r18, 0x00	; 0
 	
-	unsigned char cnt=0;
+	int cnt=0;
 	
 	while(1)
 	{
-		if(PINB & mb1){
-  78:	b4 9b       	sbis	0x16, 4	; 22
-  7a:	0f c0       	rjmp	.+30     	; 0x9a <main+0x2e>
-			cnt++;
-  7c:	8f 5f       	subi	r24, 0xFF	; 255
-			PORTA=cnt & ma;
-  7e:	98 2f       	mov	r25, r24
-  80:	9f 70       	andi	r25, 0x0F	; 15
-  82:	9b bb       	out	0x1b, r25	; 27
-			PORTC=0b00000001;
-  84:	25 bb       	out	0x15, r18	; 21
+		if(PINB & mb1)
+  7e:	b4 9b       	sbis	0x16, 4	; 22
+  80:	12 c0       	rjmp	.+36     	; 0xa6 <main+0x3a>
+		{
+			if (cnt == 15)
+  82:	8f 30       	cpi	r24, 0x0F	; 15
+  84:	91 05       	cpc	r25, r1
+  86:	11 f0       	breq	.+4      	; 0x8c <main+0x20>
+				cnt = 0;
+			else
+				cnt++;
+  88:	01 96       	adiw	r24, 0x01	; 1
+  8a:	02 c0       	rjmp	.+4      	; 0x90 <main+0x24>
+	while(1)
+	{
+		if(PINB & mb1)
+		{
+			if (cnt == 15)
+				cnt = 0;
+  8c:	83 2f       	mov	r24, r19
+  8e:	92 2f       	mov	r25, r18
+			else
+				cnt++;
+			
+			PORTA=cnt;
+  90:	8b bb       	out	0x1b, r24	; 27
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  86:	3f e3       	ldi	r19, 0x3F	; 63
-  88:	4d e0       	ldi	r20, 0x0D	; 13
-  8a:	93 e0       	ldi	r25, 0x03	; 3
-  8c:	31 50       	subi	r19, 0x01	; 1
-  8e:	40 40       	sbci	r20, 0x00	; 0
-  90:	90 40       	sbci	r25, 0x00	; 0
-  92:	e1 f7       	brne	.-8      	; 0x8c <main+0x20>
-  94:	00 c0       	rjmp	.+0      	; 0x96 <main+0x2a>
-  96:	00 00       	nop
-  98:	ef cf       	rjmp	.-34     	; 0x78 <main+0xc>
+  92:	6f e3       	ldi	r22, 0x3F	; 63
+  94:	7d e0       	ldi	r23, 0x0D	; 13
+  96:	e3 e0       	ldi	r30, 0x03	; 3
+  98:	61 50       	subi	r22, 0x01	; 1
+  9a:	70 40       	sbci	r23, 0x00	; 0
+  9c:	e0 40       	sbci	r30, 0x00	; 0
+  9e:	e1 f7       	brne	.-8      	; 0x98 <main+0x2c>
+  a0:	00 c0       	rjmp	.+0      	; 0xa2 <main+0x36>
+  a2:	00 00       	nop
+  a4:	ec cf       	rjmp	.-40     	; 0x7e <main+0x12>
+		
 			_delay_ms(1000);
 		}
 		
-		else if(PINB & mb2){
-  9a:	b5 9b       	sbis	0x16, 5	; 22
-  9c:	0e c0       	rjmp	.+28     	; 0xba <main+0x4e>
-			cnt--;
-  9e:	81 50       	subi	r24, 0x01	; 1
-			PORTA=cnt & ma;
-  a0:	98 2f       	mov	r25, r24
-  a2:	9f 70       	andi	r25, 0x0F	; 15
-  a4:	9b bb       	out	0x1b, r25	; 27
-  a6:	3f e3       	ldi	r19, 0x3F	; 63
-  a8:	4d e0       	ldi	r20, 0x0D	; 13
-  aa:	93 e0       	ldi	r25, 0x03	; 3
-  ac:	31 50       	subi	r19, 0x01	; 1
-  ae:	40 40       	sbci	r20, 0x00	; 0
-  b0:	90 40       	sbci	r25, 0x00	; 0
-  b2:	e1 f7       	brne	.-8      	; 0xac <main+0x40>
-  b4:	00 c0       	rjmp	.+0      	; 0xb6 <main+0x4a>
-  b6:	00 00       	nop
-  b8:	df cf       	rjmp	.-66     	; 0x78 <main+0xc>
-			_delay_ms(1000);
+		else if(PINB & mb2)
+  a6:	b5 9b       	sbis	0x16, 5	; 22
+  a8:	ea cf       	rjmp	.-44     	; 0x7e <main+0x12>
+		{
+			if (cnt == 0)
+  aa:	00 97       	sbiw	r24, 0x00	; 0
+  ac:	11 f0       	breq	.+4      	; 0xb2 <main+0x46>
+				cnt = 15;
+			else
+				cnt--;
+  ae:	01 97       	sbiw	r24, 0x01	; 1
+  b0:	02 c0       	rjmp	.+4      	; 0xb6 <main+0x4a>
 		}
 		
-		else{
-			PORTC=0;
-  ba:	15 ba       	out	0x15, r1	; 21
-  bc:	dd cf       	rjmp	.-70     	; 0x78 <main+0xc>
+		else if(PINB & mb2)
+		{
+			if (cnt == 0)
+				cnt = 15;
+  b2:	85 2f       	mov	r24, r21
+  b4:	94 2f       	mov	r25, r20
+			else
+				cnt--;
+			
+			PORTA=cnt;
+  b6:	8b bb       	out	0x1b, r24	; 27
+  b8:	6f e3       	ldi	r22, 0x3F	; 63
+  ba:	7d e0       	ldi	r23, 0x0D	; 13
+  bc:	e3 e0       	ldi	r30, 0x03	; 3
+  be:	61 50       	subi	r22, 0x01	; 1
+  c0:	70 40       	sbci	r23, 0x00	; 0
+  c2:	e0 40       	sbci	r30, 0x00	; 0
+  c4:	e1 f7       	brne	.-8      	; 0xbe <main+0x52>
+  c6:	00 c0       	rjmp	.+0      	; 0xc8 <main+0x5c>
+  c8:	00 00       	nop
+  ca:	d9 cf       	rjmp	.-78     	; 0x7e <main+0x12>
 
-000000be <_exit>:
-  be:	f8 94       	cli
+000000cc <_exit>:
+  cc:	f8 94       	cli
 
-000000c0 <__stop_program>:
-  c0:	ff cf       	rjmp	.-2      	; 0xc0 <__stop_program>
+000000ce <__stop_program>:
+  ce:	ff cf       	rjmp	.-2      	; 0xce <__stop_program>
