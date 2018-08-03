@@ -1,0 +1,118 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{physics}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{subfiles}
+\usepackage{enumerate}
+
+\setlength{\parindent}{5em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.5}
+
+\title{	
+	\textbf{CSE-315 Microprocessor}
+	\endgraf\bigskip
+}
+
+\author{
+	\Large{Waqar Hassan Khan}\\
+	\Large{Student ID : 1505107}
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Chapter-9 : 8086/8088 specification}
+
+\begin{itemize}
+	\item virtually no differences between these two microprocessors. Both are packaged in 40-pin dual in-line package.
+	
+	\item\textbf{8086:}16 bit microprocessor with a 16bit data bus(A0-A15)\\
+	\textbf{8088:}16 bit microprocessor with a 8bit data bus(A0-A7)\\
+	major difference between 8086 and 8088.
+	
+	\item Minor differences\\
+	\textbf{8086:}M/$\overline{IO}$;\textbf{8088:}IO/$\overline{M}$\\
+	PIN34:-\textbf{8086:}$\overline{BHE}$/S7;\textbf{8088:}SS0\\
+	
+	\item power supply requirements:\\
+	+5v with a supply voltage tolerance of $+-10\%$\\
+	both 32F to 180F\\
+	8086 and 8088 have 340 and 360 mA.
+	
+	\textbf{figures in the book}
+	
+	\subsection{Pin Connection}
+	\begin{itemize}
+		\item \textbf{AD7-AD0:}\\
+		-8088 address/data bus lines\\
+		-multiplexed address data bus\\
+		-rightmost 8 bits of the memory address or I/O port whenever ALE=1 or ALE=0\\
+		-high impedance state during hold acknowledge.\\
+		
+		\item \textbf{A15-A8:} \\
+		-8088 address bus\\
+		-high impedance state during hold acknowledge.\\
+		
+		\item \textbf{AD15-AD8:}\\
+		-8086 address/data bus lines.\\
+		-contains address bits when ALE=1\\
+		-high impedance state during hold acknowledge.\\
+		
+		\item \textbf{A19/S6-A16/S3:}\\
+		-multiplexed address/data bus lines\\
+		-high impedance state during hold acknowledge.\\
+		
+		\item\textbf{S6:} always 0\\
+		\item\textbf{S5:} indicated the condition of \textbf{\textcolor{red}{IF}} flag\\
+		
+		\begin{table}[H]
+			\begin{tabular}{|c|c|c|}
+				\hline
+				S4 & S3 & indicate segment accessed  during current bus cycle\\\hline
+				
+				0 & 0 & extra segment\\\hline
+				0 & 1 & stack segment\\\hline
+				1 & 0 & code or no segment\\\hline
+				1 & 1 & data segment\\\hline
+			\end{tabular}
+		\end{table}
+	
+		\item -$\overline{RD}:$ if it is 0 then the data bus becomes receptive to data from memory or i/o devices connected to the system.\\
+		-high impedance state during hold acknowledge.\\
+		
+		\item\textbf{READY:}\\
+		-enters into wait state and remains idle if 0\\
+		-no effect on operations of microprocessor if this pin is in logic state 1.\\
+		
+		\item\textbf{INTR:}\\
+		-used to request a h/w interrupt.\\
+		-if INTR=1 when IF=1 then microprocessor enters an interrupt acknowledge cycle after completion of current instruction\\
+		
+		\item\textbf{NMI:}\\
+		-non maskable interrupt pin.\\
+		-similar to INTR except do not check IF flag.\\
+		
+		\item$\overline{\textbf{TEST}}:$\\
+		-an input that is tested by \textbf{wait} instruction.
+		-if it is 0, the \textbf{WAIT} functions as \textbf{NOP}.\\
+		-if 1 then \textbf{WAIT} waits for   $\overline{\textbf{TEST}}$ to become logic 0.\\
+	\end{itemize}
+\end{itemize}
+
+
+\end{document}
+
+
