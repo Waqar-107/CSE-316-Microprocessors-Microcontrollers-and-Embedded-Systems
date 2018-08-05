@@ -399,6 +399,42 @@
 
 %---------------------------------------------------------------------------------------
 %lecture-5
+\section{Demultiplexing 8088}
+\textbf{9th image, figure would added later}\\
+\begin{itemize}
+	\item 74LS373 latches(OE for output enable and G or LE for latch enable inside) are used to demultiplex address data bus connections and address/status bus connections.
+	
+	\item 74LS373 passes inputs to outputs like wires when ALE is logic 1; when ALE returns to logic 0, the latches remember the inputs at the time of the change to logic 0. 
+\end{itemize}
+
+\subsection{Demultiplexing 8086}
+\textbf{9th image, figure would added later}\\
+\begin{itemize}
+	\item Difference from 8088, AD15-AD8 and $\overline{BHE}$/S7
+	\item $\overline{BHE}$ selects a high order memory bank in a 16-bit memory system in 8086.
+\end{itemize}
+
+\subsection{Buffered System}
+\begin{itemize}
+	\item If more than 10 unit loads are attached to any bus pins, the entire microprocessor system must be buffered(Buffer provides amplification in a digital circuit to drive output loads enabling more TTL unit loads to be driven.)
+	
+	\item The demultiplexed pins are already buffered by the 74LS373 latches.
+	
+	\item A fully buffered signal will introduce a timing delay which causes no difficulty unless memory or i/o devices are used that function at near the maximum speed of the bus.
+\end{itemize}
+
+\subsection{Fully buffered 8088}
+\textbf{image from 10th image}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		microprocessor & 74LS244(octal buffer) & 74LS245(octal bidirectional bus buffer) & 74LS373\\\hline
+		8088 & 2 & 1 & 2\\\hline
+		8086 & 1 & 2 & 3\\\hline
+	\end{tabular}
+\end{table}
 %---------------------------------------------------------------------------------------
 \end{document}
 
