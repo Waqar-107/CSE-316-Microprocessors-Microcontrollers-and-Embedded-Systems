@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.4.19)  5 AUG 2018 12:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.4.19)  5 AUG 2018 13:42
 entering extended mode
 **./razi-sir.tex
 (razi-sir.tex
@@ -1994,272 +1994,104 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 35.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 42.
+) [1
+
+{C:/Users/lenovo/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (razi-sir.
+toc)
+\tf@toc=\write4
+\openout4 = `razi-sir.toc'.
+
+ [2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 46.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 42.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 46.
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--51
-
- []
-
-[1
-
-{C:/Users/lenovo/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 61--66
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--70
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--75
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 76--79
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
-
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 96--98
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 99--102
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 103--106
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--110
+Underfull \hbox (badness 10000) in paragraph at lines 52--55
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 111--115
-
- []
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 125--128
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--132
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 133--136
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--140
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 151--155
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 156--159
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 160--163
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 164--169
-
- []
-
-[6]
-Overfull \hbox (44.32893pt too wide) in paragraph at lines 170--173
+[4] [5] [6]
+Overfull \hbox (44.32893pt too wide) in paragraph at lines 174--177
 \OT1/cmr/m/n/12 -indicates that mi-cro-pro-ces-sors data bus is transmitting(DT
 /$\OML/cmm/m/it/12 overlineR$\OT1/cmr/m/n/12 =1)
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 170--173
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--176
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 177--180
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 181--183
-
- []
-
 [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 232--233
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 234--236
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 237--240
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 241--242
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 243--246
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
 <image/8284A.png, id=39, 408.02437pt x 449.42906pt>
 File: image/8284A.png Graphic file (type png)
 <use image/8284A.png>
-Package pdftex.def Info: image/8284A.png  used on input line 264. on input line
- 264.
+Package pdftex.def Info: image/8284A.png  used on input line 268. on input line
+ 268.
 Package pdftex.def Info: Requested size: 195.0pt x 214.79083pt on input line 26
-4.
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 273--278
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 279--280
-
- []
-
-[11 <./image/8284A.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 284--286
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 287--289
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 290--292
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--295
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 296--300
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 301--303
+8.
+[10] [11 <./image/8284A.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 308--309
 
  []
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 304--305
+<image/8284AINT.png, id=51, 1760.5775pt x 1244.65pt>
+File: image/8284AINT.png Graphic file (type png)
+<use image/8284AINT.png>
+Package pdftex.def Info: image/8284AINT.png  used on input line 340. on input l
+ine 340.
+Package pdftex.def Info: Requested size: 390.0pt x 275.70403pt on input line 34
+0.
+ [13]
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+Underfull \hbox (badness 10000) in paragraph at lines 349--350
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 311--314
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 315--317
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 318--320
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 321--324
-
- []
-
-[13] [14] (razi-sir.aux) ) 
+<image/reset_8284A.png, id=56, 284.06125pt x 178.6675pt>
+File: image/reset_8284A.png Graphic file (type png)
+<use image/reset_8284A.png>
+Package pdftex.def Info: image/reset_8284A.png  used on input line 356. on inpu
+t line 356.
+Package pdftex.def Info: Requested size: 195.0pt x 122.65366pt on input line 35
+6.
+[14 <./image/8284AINT.png>] [15 <./image/reset_8284A.png>] [16] (razi-sir.aux) 
+) 
 Here is how much of TeX's memory you used:
- 23872 strings out of 493312
- 461988 string characters out of 3138896
- 472740 words of memory out of 3000000
- 27110 multiletter control sequences out of 15000+200000
+ 23885 strings out of 493312
+ 462331 string characters out of 3138896
+ 473740 words of memory out of 3000000
+ 27118 multiletter control sequences out of 15000+200000
  539963 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,10n,54p,10403b,365s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb
-><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on razi-sir.pdf (14 pages, 135055 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb>
+Output written on razi-sir.pdf (16 pages, 195799 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
+ 92 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 

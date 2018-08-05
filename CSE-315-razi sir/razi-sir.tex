@@ -34,6 +34,10 @@
 
 \maketitle
 
+\newpage
+\tableofcontents
+\newpage
+
 %---------------------------------------------------------------------------------------
 %lecture-1
 \section{Chapter-9 : 8086/8088 specification}
@@ -62,20 +66,20 @@
 		-8088 address/data bus lines\\
 		-multiplexed address data bus\\
 		-rightmost 8 bits of the memory address or I/O port whenever ALE=1 or ALE=0\\
-		-high impedance state during hold acknowledge.\\
+		-high impedance state during hold acknowledge.
 		
 		\item \textbf{A15-A8:} \\
 		-8088 address bus\\
-		-high impedance state during hold acknowledge.\\
+		-high impedance state during hold acknowledge.
 		
 		\item \textbf{AD15-AD8:}\\
 		-8086 address/data bus lines.\\
 		-contains address bits when ALE=1\\
-		-high impedance state during hold acknowledge.\\
+		-high impedance state during hold acknowledge.
 		
 		\item \textbf{A19/S6-A16/S3:}\\
 		-multiplexed address/data bus lines\\
-		-high impedance state during hold acknowledge.\\
+		-high impedance state during hold acknowledge.
 		
 		\item\textbf{S6:} always 0\\
 		\item\textbf{S5:} indicated the condition of \textbf{\textcolor{red}{IF}} flag\\
@@ -94,24 +98,24 @@
 		\end{table}
 	
 		\item -$\overline{RD}:$ if it is 0 then the data bus becomes receptive to data from memory or i/o devices connected to the system.\\
-		-high impedance state during hold acknowledge.\\
+		-high impedance state during hold acknowledge.
 		
 		\item\textbf{READY:}\\
 		-enters into wait state and remains idle if 0\\
-		-no effect on operations of microprocessor if this pin is in logic state 1.\\
+		-no effect on operations of microprocessor if this pin is in logic state 1.
 		
 		\item\textbf{INTR:}\\
 		-used to request a h/w interrupt.\\
-		-if INTR=1 when IF=1 then microprocessor enters an interrupt acknowledge cycle after completion of current instruction\\
+		-if INTR=1 when IF=1 then microprocessor enters an interrupt acknowledge cycle after completion of current instruction
 		
 		\item\textbf{NMI:}\\
 		-non maskable interrupt pin.\\
-		-similar to INTR except do not check IF flag.\\
+		-similar to INTR except do not check IF flag.
 		
 		\item$\overline{\textbf{TEST}}:$\\
 		-an input that is tested by \textbf{wait} instruction.
 		-if it is 0, the \textbf{WAIT} functions as \textbf{NOP}.\\
-		-if 1 then \textbf{WAIT} waits for   $\overline{\textbf{TEST}}$ to become logic 0.\\
+		-if 1 then \textbf{WAIT} waits for   $\overline{\textbf{TEST}}$ to become logic 0.
 	\end{itemize}
 \end{itemize}
 %---------------------------------------------------------------------------------------
@@ -124,23 +128,23 @@
 \begin{itemize}
 	\item\textbf{NMI:}\\
 	-non-maskable interrupt pin \\
-	-similar to INTR except that NMI does not check IF flag.\\
+	-similar to INTR except that NMI does not check IF flag.
 	
 	\item\textbf{RESET:}\\
 	-causes the microprocessor to reset if this pin remains high for a minimum of 4 clocking periods.\\
-	-whenever the microprocessor  gets reset, it begins executing instructions at memory location FFFF0H and disables future interrupts by clearing IF.\\
+	-whenever the microprocessor  gets reset, it begins executing instructions at memory location FFFF0H and disables future interrupts by clearing IF.
 	
 	\item\textbf{CLK:}\\
 	-provides the base timing signal to the microprocessor.\\
-	-clock signal must have at least 33\% duty cycle(high for $\frac{1}{3}$ rd and low for $\frac{2}{3}$ of the period)\\
+	-clock signal must have at least 33\% duty cycle(high for $\frac{1}{3}$ rd and low for $\frac{2}{3}$ of the period)
 	
 	\item\text{VCC}\\
 	-power supply input\\
-	-provides +5V \\
+	-provides +5V
 	
-	\item\textbf{GND:}- 2 pins, both must be connected to ground.\\
+	\item\textbf{GND:}- 2 pins, both must be connected to ground.
 	
-	\item\textbf{MN/$\overline{MX}$}:-selects either minimum mode or maximum mode operations of microprocessor.\\
+	\item\textbf{MN/$\overline{MX}$}:-selects either minimum mode or maximum mode operations of microprocessor.
 	
 	\item\textbf{$\overline{BHE}$/S7}-both high enable.
 	-use in 8086 to enable the most significant data bus bits(D15-D8) during a read or write\\
@@ -151,35 +155,35 @@
 		\item\textbf{IO/$\overline{M}$ or M/$\overline{IO}$}\\
 		-selects memory or i/o 
 		-indicates that microprocessors address\\ bus contains either a memory address or an i/o port address.\\
-		-high impedance state during a hold acknowledge.\\ 
+		-high impedance state during a hold acknowledge.
 		
 		\item \textbf{$\overline{WR}$:} \\
 		-indicates that microprocessor is outputting data to a memory or io device.\\
-		-data bus contains valid data for memory or io during the time, WR remains 0.\\
+		-data bus contains valid data for memory or io during the time, WR remains 0.
 		
 		\item \textbf{$\overline{INTA}$:} \\
 		-a response to the INTR input pin.\\
-		-used to gate the interrupt vector number onto the data bus in response to an interrupt request.\\
+		-used to gate the interrupt vector number onto the data bus in response to an interrupt request.
 		
 		\item \textbf{$\overline{ALE}$:} \\
 		-address latch enable.\\
 		-indicates that the microprocessor address/data bus contains address information.\\
 		-the address can be a memory address or an i/o port.\\
-		-does not float during a hold acknowledge.\\
+		-does not float during a hold acknowledge.
 		
 		\item\textbf{DT/$\overline{R}$:} - data transmit or receive.\\
 		-indicates that microprocessors data bus is transmitting(DT/$overline{R}$=1) or receiving(DT/$overline{R}$=(DT/$overline{R}$=0) data.\\
-		-used to enable external data bus buffers.\\
+		-used to enable external data bus buffers.
 		
 		\item\textbf{DEN:}-data bus enable\\
-		-activates external data bus buffers.\\
+		-activates external data bus buffers.
 		
 		\item\textbf{HOLD:} - requests a direct memory access (DMA).\\
 		-if it is logic 1, microprocessor stops executing s/w and places its address, data and control bus at high impedance state.\\
-		-if it is a logic 0, the microprocessor executes s/w normally.\\
+		-if it is a logic 0, the microprocessor executes s/w normally.
 		
 		\item\textbf{HLDA:} - hold acknowledge\\
-		-indicates that the microprocessor has entered the hold state.\\
+		-indicates that the microprocessor has entered the hold state.
 		
 		\item\textbf{$\overline{SS0}$} - equivalent to the S0 pin in the maximum mode operation.\\
 		-it is combined with IO/$\overline{M}$ and DT/$\overline{R}$ to decode function of the current bus cycle.
@@ -232,17 +236,17 @@
 \textbf{Maximum Mode Pins:} for using with external co-processors \\
 \begin{itemize}
 	\item$\overline{S2}, \overline{S1}, \overline{S0}$ - indicate the function of current bus cycle.\\
-	-normally decoded 8288 bus controller.\\
+	-normally decoded 8288 bus controller.
 	
 	\item $\overline{R1}/\overline{GT1} and \overline{R0}/\overline{GT0}$ - request/grant pins \\
 	-requests direct memory access(DMA)\\
-	-used to both request and grant DMA operation.\\
+	-used to both request and grant DMA operation.
 	
-	\item\textbf{$\overline{LOCK}$} - used to lock peripheral off the system.\\
+	\item\textbf{$\overline{LOCK}$} - used to lock peripheral off the system.
 	
 	\item \textbf{OS1 and OS2} - queue status bit.\\
 	-show status of the internal instruction queue.\\
-	-accessed by numeric co-processor(8087)\\
+	-accessed by numeric co-processor(8087)
 	
 	\begin{table}[H]
 		\centering
@@ -274,53 +278,53 @@
 	-clock generation\\
 	-RESET synchronization\\
 	-READY synchronization\\
-	-TTL-level peripheral clk signals\\
+	-TTL-level peripheral clk signals
 	
-	\item\textbf{pin functions}\\
+	\item\textbf{pin functions}
 	
 	\item\textbf{AEN1 and AEN2 (address enable)} - qualify the bus ready signals RDY1 and RDY2 respectively.\\
 	-wait states are generated by the READY pin of microprocessor, which is controlled by $\overline{AEN1}$ and $\overline{AEN2}$
 	
 	\item\textbf{RDY1 and RDY2} - Bus ready inputs.\\
-	-cause wait states in conjunction with $\overline{AEN1}$ and $\overline{AEN2}$ pins.\\
+	-cause wait states in conjunction with $\overline{AEN1}$ and $\overline{AEN2}$ pins.
 	
 	\item$\overline{\textbf{ASYNC}}:$ - READY synchronization.\\
-	-selects either one or two stages of synchronization for RDY1 and RDY2 inputs.\\
+	-selects either one or two stages of synchronization for RDY1 and RDY2 inputs.
 	
 	\item\textbf{READY} - an output pin that connects to microprocessors READY input.\\
-	-synchronized with RDY1 and RDY2 inputs.\\
+	-synchronized with RDY1 and RDY2 inputs.
 	
 	\item \textbf{X1 and X2:} - crystal oscillator pins.\\
-	-connect to an external crystal which is used as the timing source for the clock generator and all its functions.\\
+	-connect to an external crystal which is used as the timing source for the clock generator and all its functions.
 	
 	\item $\textbf{F/}\overline{\textbf{C:}}$ - Frequency/crystal select input.\\
 	- chooses the clocking source.\\
 	- if it is held high, an external clock is provided to the EFI pin.\\
-	- if it is held low, the internal crystal oscillator provides the timing signal.\\
+	- if it is held low, the internal crystal oscillator provides the timing signal.
 	
 	\item \textbf{EFI:} - External Frequency Input.\\
-	- supplies timing whenever F/$\overline{C}$ is held high.\\
+	- supplies timing whenever F/$\overline{C}$ is held high.
 	
 	\item\textbf{CLK:} - clock output pin, which provides clock input to microprocessor and other components.\\
 	
-	- output signal is $\frac{1}{3}$ of crystal or EFI input freq. and has a duty cycle of 33\%(as required by 8086/8088). \\
+	- output signal is $\frac{1}{3}$ of crystal or EFI input freq. and has a duty cycle of 33\%(as required by 8086/8088).
 	
 	\item \textbf{PCLK:} - peripheral clock.\\
 	-$\frac{1}{6}$ of the crystal or EFI input freq. and has a 50\% duty cycle.
 	
 	\item \textbf{OSC:} - oscillator output.\\
 	- at same freq. as the crystal or EFI input.\\
-	- provides an EFI input to other 8284A in a multi-processor system.\\
+	- provides an EFI input to other 8284A in a multi-processor system.
 	
 	\item $\overline{\textbf{RES}}:$ - reset input.\\
-	- often connected to an RC network that provides power on resetting.\\
+	- often connected to an RC network that provides power on resetting.
 	
 	\item\textbf{RESET:} - reset output.\\
-	- connected to microprocessors RESET input pin.\\
+	- connected to microprocessors RESET input pin.
 	
 	\item \textbf{CSYNC:} - clock synchronization.\\
 	- used whenever the EFI input provides synchronization in a multi-processor system.\\
-	-if the internal oscillator is used, this pin must be grounded.\\  
+	-if the internal oscillator is used, this pin must be grounded. 
 	  
 \end{itemize}
 %---------------------------------------------------------------------------------------
@@ -328,7 +332,73 @@
 
 %---------------------------------------------------------------------------------------
 %lecture-4
+\section{Chapter-9 : 8086/8088 specification}
+\subsection{internal block diagram of 8284A clock generator}
+\begin{figure}[H]
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width = 1.0\textwidth]{image/8284AINT.png}
+	\caption{
+		internal block diagram of 8284A clock generator
+	}
+	
+\end{figure}
 
+\begin{itemize}
+	\item if a crystal is attached to X1 and X2, the oscillator generates a square wave signal at the same frequency of the crystal.\\
+	\item $CLK=\frac{frequency}{3}; PCLK=\frac{frequency}{6}$\\
+\end{itemize}
+
+\subsection{operation of the RESET section}
+\begin{figure}[H]
+	\centering
+	\captionsetup{justification=centering}
+	\includegraphics[width = 0.5\textwidth]{image/reset_8284A.png}
+	\caption{
+		RESET operation of 8284A clock generator
+	}
+	
+\end{figure}
+\begin{itemize}
+	\item $\overline{\textbf{RES}}$ goes through a \textbf{Schmitt Trigger} and a \textbf{D-type} flip-flop, which ensures meeting timing requirements of microprocessors RESET input.
+	
+	\item the circuit applies RESET to microprocessor at a negative edge(1->0) and the microprocessor samples the RESET the signal at the positive edge(0->1).
+	
+	\item when power is first applied to the system, the RC circuit provides a logic 0 to $\overline{\textbf{RES}}$
+	
+	\item after a short time $\overline{\textbf{RES}}$ becomes logic 1, as the capacitor changes to +5v through the resistor.
+	
+	\item a push button allows the microprocessor to be reset by an operator.
+	
+	\item correct RESET timing requires the RESET input to become a logic 1 no later than 4 clock cycles after the power is applied, and held high for at least 50 micro-seconds.
+	
+	\item RESET goes high in 4 clock by FF. RESET stays high for 50 micro-seconds by RC.
+	
+\end{itemize}
+
+\subsection{Bus buffering and latching}
+\begin{itemize}
+	\item the address/data bus on the microprocessor is multiplexed(shared) to reduce the \# of pins, which, on the other hand, burdens with the task of extracting or de-multiplexing info from these pins.
+	
+	\item Why not leave the buses multiplexed??\\
+	memory and i/o require that the address remains valid and stable throughout a read or write cycle. If the buses are multiplexed , the address can get changed causing read or write in wrong locations.
+	
+	\item All computer systems have 3 types of buses:
+	\begin{enumerate}
+		\item Address bus: provides memory address or i/o port of \#s 
+		\item Data bus: transfers data between microprocessor and memory and i/o.
+		\item control bus: provides control signals to memory and i/o.
+	\end{enumerate}
+	
+\end{itemize}
+
+\textbf{Basic of de-multiplexing- images in the lecture}
+%---------------------------------------------------------------------------------------
+
+\newpage
+
+%---------------------------------------------------------------------------------------
+%lecture-5
 %---------------------------------------------------------------------------------------
 \end{document}
 
