@@ -1,14 +1,18 @@
-\contentsline {section}{\numberline {1}Chapter-9 : 8086/8088 specification}{3}
-\contentsline {subsection}{\numberline {1.1}Pin Connection}{3}
-\contentsline {section}{\numberline {2}Chapter-9 : 8086/8088 specification}{6}
-\contentsline {subsection}{\numberline {2.1}Minimum Mode Pins}{7}
-\contentsline {section}{\numberline {3}8086/8088 hardware specifications}{10}
-\contentsline {subsection}{\numberline {3.1}clock generator-8284A}{11}
-\contentsline {section}{\numberline {4}Chapter-9 : 8086/8088 specification}{14}
-\contentsline {subsection}{\numberline {4.1}internal block diagram of 8284A clock generator}{14}
-\contentsline {subsection}{\numberline {4.2}operation of the RESET section}{15}
-\contentsline {subsection}{\numberline {4.3}Bus buffering and latching}{16}
-\contentsline {section}{\numberline {5}Demultiplexing 8088}{17}
-\contentsline {subsection}{\numberline {5.1}Demultiplexing 8086}{17}
-\contentsline {subsection}{\numberline {5.2}Buffered System}{18}
-\contentsline {subsection}{\numberline {5.3}Fully buffered 8088}{18}
+\contentsline {section}{\numberline {1}Chapter-9 : 8086/8088 specification}{4}
+\contentsline {subsection}{\numberline {1.1}Pin Connection}{4}
+\contentsline {section}{\numberline {2}Chapter-9 : 8086/8088 specification}{7}
+\contentsline {subsection}{\numberline {2.1}Minimum Mode Pins}{8}
+\contentsline {section}{\numberline {3}8086/8088 hardware specifications}{11}
+\contentsline {subsection}{\numberline {3.1}clock generator-8284A}{12}
+\contentsline {section}{\numberline {4}Chapter-9 : 8086/8088 specification}{15}
+\contentsline {subsection}{\numberline {4.1}internal block diagram of 8284A clock generator}{15}
+\contentsline {subsection}{\numberline {4.2}operation of the RESET section}{16}
+\contentsline {subsection}{\numberline {4.3}Bus buffering and latching}{17}
+\contentsline {section}{\numberline {5}Demultiplexing 8088}{18}
+\contentsline {subsection}{\numberline {5.1}Demultiplexing 8086}{18}
+\contentsline {subsection}{\numberline {5.2}Buffered System}{19}
+\contentsline {subsection}{\numberline {5.3}Fully buffered 8088}{19}
+\contentsline {section}{\numberline {6}Memory Interfaces}{20}
+\contentsline {subsection}{\numberline {6.1}ROM memory(nonvolatile memory)}{20}
+\contentsline {subsection}{\numberline {6.2}Static Memory or Static RAM(SRAM) or Volatile memory}{21}
+\contentsline {subsection}{\numberline {6.3}DRAM}{21}

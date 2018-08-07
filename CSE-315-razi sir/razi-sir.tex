@@ -436,6 +436,68 @@
 	\end{tabular}
 \end{table}
 %---------------------------------------------------------------------------------------
+
+\newpage
+
+%---------------------------------------------------------------------------------------
+%lecture-6
+\section{Memory Interfaces}
+\begin{itemize}
+	\item 4 common types of memory: ROM, flash memory(EEPROM), static random access memory(SRAM) and dynamic random access memory(DRAM).
+	
+	\item pin connections common to all memory devices: address inputs, data inputs(inputs/outputs), some type of selection input and at least one control input used to select a read or write operation.
+	
+	\item control connections:\\
+	ROM-only one control input($\overline{OE}$ or $\overline{G}$)-output enable and gate.\\
+	RAM-one $R/\overline{W}$ or 2 ($\overline{WE}/\overline{W} and \overline{OE}/\overline{G}$)-control input do not get activated at the same time.
+\end{itemize}
+
+\subsection{ROM memory(nonvolatile memory)}
+\begin{itemize}
+	\item permanently stores programs that are resident to the system and must not change when power supply is disconnected(permanently programmed)
+	
+	\item EPROM(erasable programmable rom): programmed using a device called EPROM programmer; erasable if exposed to high-intensity uv light for about 20 minutes or less.
+	
+	\item PROM(programmable ROM): programmed by burning open tiny Ni-Chrome or Silicon Oxide fuses. Once programmed, it can't be erased
+	
+	\item Read Mostly Ram(RMM) or flash memory or EEPROM(electrically erasable programmable rom) or EAROM(electrically altered rom) or NOVRAM(non-volatile ram). Electrically erasable, however, needs more time to erase than a normal RAM.
+	
+	\item delays in operation of an EPROM:\\
+	$t_{acc}1$: address to output delay.\\
+	$t_{OH}$: address to output hold.\\
+	$t_{co}$: chip select to output delay.\\
+	$t_{OF}$: chip deselect to output float.
+	
+	\textbf{timing digram of eprom- page12} 
+\end{itemize}
+
+\subsection{Static Memory or Static RAM(SRAM) or Volatile memory}
+
+\begin{itemize}
+	\item Retain data as long as DC power is applied (no data without power)
+	
+	\item Difference between ROM and RAM:\\
+	RAM->written under normal operation;
+	ROM->programmable outside the computer and is normally read.
+\end{itemize}
+
+\subsection{DRAM}
+\begin{itemize}
+	\item DRAM is essentially same as SRAM, except that it retains data for only 2 or 4ms on an integrated capacitor.
+	
+	\item Alter 2 or 4ms, the contents of DRAM must be completely rewritten(refreshed) because the capacitors(which store logic 1/0) lose their charges.
+	
+	\item Refreshing also occurs during a write, a read or during a special refresh cycle.
+\end{itemize}
+%---------------------------------------------------------------------------------------
+
+\newpage
+
+%---------------------------------------------------------------------------------------
+%lecture-7
+
+%---------------------------------------------------------------------------------------
+
 \end{document}
 
 
