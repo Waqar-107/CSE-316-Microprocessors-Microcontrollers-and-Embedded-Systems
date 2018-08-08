@@ -495,7 +495,71 @@
 
 %---------------------------------------------------------------------------------------
 %lecture-7
+\section{Lecture 7}
 
+\subsection{Dynamic RAM (DRAM)}
+\begin{itemize}
+	\item Have much larger sizes compared to SRAM. Its obvious disadvantage is requirement of many address pins. To reduce the number of address pins, the address inputs are multiplexed.
+	
+	\item Example of multiplexed address pins: 64k X 4 DRAM
+	
+	\textbf{image from image13}\\
+	
+	A0-A7 : Address inputs\\
+	$\overline{CAS}$ : Column Address Strobe\\
+	DQ1-DQ4 : Data-in/Data-out\\
+	$\overline{G}$ : Output enable\\
+	$\overline{RAS}$ : Row Address Strobe\\
+	VDD : +5v supply\\
+	VSS : Ground\\
+	$\overline{W}$ : Write enable
+	
+	\item Here for 64k, 16 address pins are required. However, 8 address pins are used through multiplexed\\
+	 
+	- At first, A0-A7 are stored in internal row latch as row address through  enabling $\overline{RAS}$\\
+	- Next A8-A15 are stored in internal column latch as column address through enabling $\overline{CAS}$
+	
+	\item Address multiplexer of 65k X 4\\
+	\textbf{image from image13}\\
+	
+	\item If $\overline{RAS}$ is 0, then 'A' pins get connected and A0-A7 are stored in the \textbf{Internal Row Address} latch
+	
+	\item The Internal Row Address latch is edge triggered and so the row address get captured into the latch before the address changes to column address.
+	
+	\item If $\overline{RAS}$ is 1, then the 8-pins get connected and A8-A15 are stored in Internal Column Address Latch  
+\end{itemize}
+
+\subsection{Address Decoding}
+\begin{itemize}
+	\item Decoding address sent from microprocessor is necessary, as without it, only one memory device can be connected to a microprocessor.
+	
+	\item Another reason of decoding is possible mismatch(or difference) between the \# of connections in microprocessor and memory\\.
+	e.g. a 2k X 8 EPROM(2716) has 11 address pins, whereas the microprocessor 8088 has 20 address pins.
+	
+	\item Simple NAND Gate Decoder:\\
+	\textbf{image from image14}
+	
+	\item Here, the 2k EPROM is decoded at memory address locations \textbf{FF800H-FFFFFH} (the FF8 corresponds to 1's in left 9 positions)
+	
+	\item In such a decoding, one NAND gate decoder selects 1 2k EPROM out of many 2k EPROM that appear in 1M address space.
+	
+	\item The obvious disadvantage is that each EPROM needs one NAND gate decoder.
+	
+	\item 3-8 line decoder(74LS138)
+	
+	\textbf{image from image14}
+	
+	\item Input : enable=001 and selection(ABC)=n\\
+	Output : nth output=0; rest are 1
+	
+	\item Input : enable!=001\\
+	Output : all outputs are 1
+	
+	\item A16-A19 must have 1 for activating 74138, therefore, all addresses begin with "1111" at the left
+	
+	\item 8 2764(EPROM) (each 8k X 8, having 13 pins) are decoded over address space F0000H-FFFFFH(64k X 8) 
+	
+\end{itemize}
 %---------------------------------------------------------------------------------------
 
 \end{document}

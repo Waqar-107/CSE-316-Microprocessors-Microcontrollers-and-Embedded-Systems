@@ -16,3 +16,6 @@
 \contentsline {subsection}{\numberline {6.1}ROM memory(nonvolatile memory)}{20}
 \contentsline {subsection}{\numberline {6.2}Static Memory or Static RAM(SRAM) or Volatile memory}{21}
 \contentsline {subsection}{\numberline {6.3}DRAM}{21}
+\contentsline {section}{\numberline {7}Lecture 7}{23}
+\contentsline {subsection}{\numberline {7.1}Dynamic RAM (DRAM)}{23}
+\contentsline {subsection}{\numberline {7.2}Address Decoding}{24}
